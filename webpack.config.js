@@ -6,9 +6,16 @@ module.export = (env, args) => {
     const { mode } = args;
 
     return {
+        resolve: {
+            extensions: ['js', 'mjs'],
+            alias: {
+                "@share": resolve(__dirname, 'src', 'share'),
+                "@routes": resolve(__dirname, 'src', 'routes'),
+            },
+        },
         filename: '[name].[extension]',
         output: {
-            path: resolve(_dirname, 'build')
+            path: resolve(__dirname, 'build')
         },
         module: {
             rules: [

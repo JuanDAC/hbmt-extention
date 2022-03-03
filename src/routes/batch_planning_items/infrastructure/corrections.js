@@ -3,5 +3,6 @@ import { createTitleOfActions, createGlobalAction } from '../application/correct
 export const corrections = () => {
     createTitleOfActions();
     createGlobalAction("Review (100%)");
-    /* createGlobalAction("Mark as skipped"); */
+    createGlobalAction("Mark as skipped", { method: "POST" });
+    createGlobalAction("Mark as unskipped", { method: "POST" });
 };

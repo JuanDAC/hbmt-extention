@@ -1,0 +1,26 @@
+{
+    "manifest_version": 2,
+    "name": "holberton school manager tools",
+    "description": "a description of the extension",
+    "version": "1.0",
+    "icons": {
+        "16": "./icons/hbmt.png",
+        "48": "./icons/hbmt.png",
+        "128": "./icons/hbmt.png",
+        "224": "./icons/hbmt.png"
+    },
+    "page_action": {
+        "default_icon": {
+            "16": "./icons/hbmt.png",
+            "48": "./icons/hbmt.png",
+            "128": "./icons/hbmt.png",
+            "224": "./icons/hbmt.png"
+        }
+    },
+    "content_scripts": [
+        {
+            "matches": ["https://intranet.hbtn.io/*"],
+            "js": ["./dist/main.js"]
+        }
+    ]
+}

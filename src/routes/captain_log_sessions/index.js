@@ -1,19 +1,8 @@
+import { loadHTML } from "../../share/htmlTools";
+const { location: { pathname } } = window;
 const { body } = document;
 
-const loadHTML = html => new Promise((resolve, reject) => {
-    try {
-        const $div = document.createElement("div");
-        $div.style.setProperty("visibility", "hidden");
-        $div.style.setProperty("height", "0px");
-        $div.style.setProperty("width", "0px");
-        $div.innerHTML = html;
-        body.appendChild($div);
-        resolve($div);
-    }
-    catch (e) {
-        reject($div);
-    }
-});
+
 
 const filterStudentTablecells = ($item, index) => {
     const indexId = 1, indexCurriculum = 7, indexCurrentActivity = 8, classContact = "contact";
@@ -40,24 +29,72 @@ const getInfoStudets = $document => Object.fromEntries([...($document?.querySele
         return [key, data];
     }));
 
-const load = async () => {
-    const responseStudents = await fetch("https://intranet.hbtn.io/batches/144/students")
-    const htmlStudents = await responseStudents.text();
-    const $documentStudents = await loadHTML(htmlStudents);
+const getLastAverage = ($td) => {
+    if (!$td)
+        return null;
 
-    const response = await fetch("https://intranet.hbtn.io/batches/78/path_choices")
-    const html = await response.text();
-    const $document = await loadHTML(html);
+    const avarage = getLastAverage($td.nextElementSibling);
 
-    const students = getInfoStudets($document)
-    $document.remove();
-    console.log(students);
-    [...document.querySelectorAll("li.list-group-item")].forEach((captainLog) => {
+    if (!avarage)
+        return Number($td.previousElementSibling.textContent);
+
+    return (avarage)
+};
+
+const getExpecialization = ($tr) => {
+    if (!$tr)
+        return null;
+
+    const avarage = getExpecialization($tr.nextElementSibling);
+
+    if (!avarage)
+        return $tr.firstElementChild.textContent;
+
+    return (avarage)
+};
+
+const captainLogs = async () => {
+
+    [...document.querySelectorAll("li.list-group-item")].forEach(async (captainLog) => {
         const idStudent = [...captainLog.querySelector("a").getAttribute("href").match(/[\d]+/)].pop();
-        const [contacts, curriculum, currentActivity] = students[idStudent];
-        const header = [...captainLog.children].shift();
-        header.insertAdjacentElement("beforeend", [...curriculum.children].pop());
+        const responseStudents = await fetch(`https://intranet.hbtn.io/users/${idStudent}`)
+        const htmlStudents = await responseStudents.text();
+        const $document = await loadHTML(htmlStudents);
+        const tds = [...$document.querySelectorAll("td")]
+            .filter(element => element.textContent.includes("Average"));
+        const $td = tds.pop();
+        const average = getLastAverage($td);
+
+        const curriculum = tds.length > 0
+            ? getExpecialization($td.parentElement)
+            : "Foundations";
+        const $span = document.createElement("span");
+        $span.classList.add("fw-bold")
+        "btn btn-sm btn-default btn-success"
+        $span.textContent = `Average: `;
+        const $average = document.createElement("button");
+        $average.setAttribute("disabled", true);
+        $average.classList.add("btn", "btn-sm", "btn-default", average < 80 ? "btn-danger" : "btn-success");
+
+        $average.textContent = average;
+
+        const $curriculum = document.createElement("button");
+        $curriculum.classList.add("btn", "btn-sm", "btn-default");
+        $curriculum.setAttribute("disabled", true);
+        $curriculum.textContent = curriculum;
+        const $container = captainLog.querySelector("div");
+        $container.appendChild($curriculum);
+        $container.appendChild($span);
+        $container.appendChild($average);
+        $document.remove();
+
     })
+
+}
+
+const load = () => {
+    if (/captain_logs/.test(pathname)) captainLogs();
+
 }
 
 export default load;

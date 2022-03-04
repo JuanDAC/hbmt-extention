@@ -12,21 +12,24 @@ function generateActionAll(filter = "", configFetch = { method: "GET" }) {
     if (urls.length === 0)
         return this.setAttribute("disabled", true);
 
+    this.textContent += ` to ${urls.length}`;
+
+
     return async () => {
         this.classList.add("btn-warning", "animate-flicker");
         try {
             await recursiveFetch(urls, configFetch);
-            this.classList.remove("btn-warning");
+            this.classList.remove("btn-warning", "animate-flicker");
             this.classList.add("btn-success");
             await timeout(3000);
-            this.classList.remove("btn-success", "animate-flicker");
+            this.classList.remove("btn-success");
             await timeout(2000);
             location.reload();
         } catch {
-            this.classList.remove("btn-warning");
+            this.classList.remove("btn-warning", "animate-flicker");
             this.classList.add("btn-danger");
             await timeout(4000);
-            this.classList.remove("btn-danger", "animate-flicker");
+            this.classList.remove("btn-danger");
         }
     }
 };
@@ -40,10 +43,10 @@ export const createGlobalAction = (action = "Review (100%)", configFetch = { met
     $table.insertAdjacentElement("beforebegin", $link);
 }
 
-export const createTitleOfActions = () => {
+export const createTitleOfActions = (title = "Apply to all:") => {
     const $title = document.createElement("strong");
     $title.className = "mr-2";
-    $title.textContent = "Apply to all:";
+    $title.textContent = title;
     const $table = document.querySelector("table");
     $table.insertAdjacentElement("beforebegin", $title);
 }

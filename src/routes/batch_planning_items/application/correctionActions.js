@@ -1,4 +1,5 @@
 import { recursiveFetch } from "../../../share/servicesFetch";
+import { loaderTextAnimation } from "../../../share/htmlTools";
 import { timeout } from "../../../share/promsesTools";
 
 function generateActionAll(filter = "", configFetch = { method: "GET" }) {
@@ -16,19 +17,22 @@ function generateActionAll(filter = "", configFetch = { method: "GET" }) {
 
 
     return async () => {
-        this.classList.add("btn-warning", "animate-flicker");
+        this.classList.add("btn-warning");
+        loaderTextAnimation.call(this, "Loading");
         try {
             await recursiveFetch(urls, configFetch);
-            this.classList.remove("btn-warning", "animate-flicker");
+            this.classList.remove("btn-warning");
             this.classList.add("btn-success");
-            await timeout(3000);
+            this.removeTextAnimation();
+            await timeout(2000);
             this.classList.remove("btn-success");
             await timeout(2000);
             location.reload();
         } catch {
-            this.classList.remove("btn-warning", "animate-flicker");
+            this.classList.remove("btn-warning");
             this.classList.add("btn-danger");
-            await timeout(4000);
+            this.removeTextAnimation();
+            await timeout(3000);
             this.classList.remove("btn-danger");
         }
     }

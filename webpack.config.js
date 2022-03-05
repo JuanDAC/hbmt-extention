@@ -6,6 +6,7 @@ module.export = (env, args) => {
     const { mode } = args;
 
     return {
+        devtool: 'source-map',
         resolve: {
             extensions: ['js', 'mjs'],
             alias: {

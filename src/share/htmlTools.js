@@ -16,3 +16,34 @@ export const loadHTML = html => new Promise((resolve, reject) => {
     }
 });
 
+export const addArrayTo = ($parent, [$element, ...elements]) => {
+    if (!$element)
+        return;
+    $parent.appendChild($element);
+    addArrayTo($parent, elements);
+};
+
+export const sortBy = (elements, sortedBy) => {
+    if (!Array.isArray(elements) || elements.length <= 1)
+        return;
+    const { parentElement: $parentElement } = elements[0];
+    elements.forEach($element => $element.remove());
+    elements.sort(sortedBy)
+    addArrayTo($parentElement, elements);
+}
+
+export const loaderTextAnimation = function (text) {
+    const { textContent } = this;
+    this.textContent = text;
+    this.setAttribute("disabled", true);
+    const timer = setInterval(() => {
+        const { length } = this.textContent.match(/\./g) || [];
+        const points = '.'.repeat((length + 1) % 4);
+        this.textContent = `${text} ${points}`;
+    }, 200);
+    this.removeTextAnimation = function () {
+        clearInterval(timer);
+        this.removeAttribute("disabled");
+        this.textContent = textContent;
+    };
+}

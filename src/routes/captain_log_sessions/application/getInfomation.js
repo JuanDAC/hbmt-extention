@@ -23,7 +23,7 @@ export const getExpecialization = ($tr) => {
     return (avarage)
 };
 
-export const getIdUser = $document => [...$document.querySelector("a").getAttribute("href").match(/[\d]+/)].pop();
+export const getIdUser = $document => Number([...$document.querySelector("a").getAttribute("href").match(/[\d]+/)].pop());
 
 export const getAverageTds = $document => [...$document.querySelectorAll("td")]
     .filter(element => element.textContent.includes("Average"));

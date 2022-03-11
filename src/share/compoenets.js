@@ -1,10 +1,10 @@
 import { loaderTextAnimation } from "./htmlTools"
 
-export const createLoader = () => {
+export const createLoader = (text = "Loading") => {
     const $loader = document.createElement("button");
     $loader.classList.add("btn", "btn-sm", "btn-default", "btn-warning");
     $loader.setAttribute("disabled", true);
-    $loader.textContent = "Loading";
+    $loader.textContent = text;
     loaderTextAnimation.call($loader, $loader.textContent);
     const remove = $loader.remove;
     $loader.remove = function () {

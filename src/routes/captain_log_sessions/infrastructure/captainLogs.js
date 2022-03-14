@@ -110,6 +110,7 @@ export const captainLogs = async () => {
             : "Foundations";
         $loader.remove();
         const $wrapper = document.createElement("div");
+        $wrapper.className = "align-items-center d-flex fs-3 fw-bold gap-2";
         $wrapper.appendChild(buttonCurriculum(curriculum));
         $wrapper.appendChild(spanAverage());
         $wrapper.appendChild(buttonAverage(average));
@@ -123,6 +124,11 @@ export const captainLogs = async () => {
 
     const $menu = document.createElement("div");
     $menu.classList.add("list-group-item");
+    $menu.style.cssText = `
+        position: sticky;
+        top: 0px;
+        z-index: 2;
+    `;
     $menu.appendChild(createSubTitle("Sorting by"));
     const $reference = document.querySelector(".show > .tab-pane");
     $reference.insertAdjacentElement("beforebegin", $menu);

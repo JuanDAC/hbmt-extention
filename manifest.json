@@ -1,24 +1,36 @@
 {
-    "manifest_version": 3,
-    "name": "holberton school manager tools",
-    "description": "a description of the extension",
-    "version": "1.0",
-    "content_security_policy": {
-        "extension_pages": "default-src 'self'"
-    },
-    "icons": {
-        "16": "./icons/hbmt.png",
-        "48": "./icons/hbmt.png",
-        "128": "./icons/hbmt.png",
-        "224": "./icons/hbmt.png"
-    },
-    "content_scripts": [{
-        "matches": ["https://intranet.hbtn.io/*"],
-        "run_at": "document_end",
-        "js": ["./dist/main.js"]
-    }],
-    "web_accessible_resources": [{
-        "resources": ["./dist/main.js"],
-        "matches": ["https://intranet.hbtn.io/*"]
-    }]
+	"manifest_version": 3,
+	"name": "Holberton School Tools",
+	"description": "Collection of tools for the intranet of Holberton School",
+	"version": "1.000",
+	"content_security_policy": {
+		"extension_pages": "default-src 'self'"
+	},
+	"icons": {
+		"16": "./icons/hbmt.png",
+		"48": "./icons/hbmt.png",
+		"128": "./icons/hbmt.png",
+		"224": "./icons/hbmt.png"
+	},
+	"content_scripts": [
+		{
+			"matches": [
+				"[domine]/*"
+			],
+			"run_at": "document_end",
+			"js": [
+				"./[filename].js"
+			]
+		}
+	],
+	"web_accessible_resources": [
+		{
+			"resources": [
+				"./[filename].js"
+			],
+			"matches": [
+				"[domine]/*"
+			]
+		}
+	]
 }

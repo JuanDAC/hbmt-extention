@@ -6,6 +6,7 @@ export const corrections = () => {
     createGlobalAction("Second review (65%)");
     createGlobalAction("Last review (50%)");
     createTitleOfActions("Apply visivility to all:");
-    createGlobalAction("Mark as skipped", { method: "POST" });
-    createGlobalAction("Mark as unskipped", { method: "POST" });
+    createGlobalAction("Ignore the score", { method: "POST" });
+    createGlobalAction("Keep the score", { method: "POST" });
+    createGlobalAction("Put zero", { method: "POST" });
 };

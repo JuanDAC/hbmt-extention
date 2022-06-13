@@ -2,7 +2,7 @@
 	"manifest_version": 3,
 	"name": "Holberton School Tools",
 	"description": "Collection of tools for the intranet of Holberton School",
-	"version": "1.000",
+	"version": "1.002",
 	"content_security_policy": {
 		"extension_pages": "default-src 'self'"
 	},

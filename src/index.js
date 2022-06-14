@@ -17,7 +17,7 @@ const loadRoutes = async () => {
             <i aria-hidden="true" class="fa fa-download"></i>You have an extension update pending
         </div>
         <div>
-            Update enabled:&nbsp;<a href="https://github.com/JuanDAC/hbmt-extention/blob/main/HolbertonSchool.zip">Student</a>&nbsp;|&nbsp;
+            Update enabled:&nbsp;<a href="https://github.com/JuanDAC/hbmt-extention/raw/main/HolbertonSchool.zip">Here</a>&nbsp;|&nbsp;
         </div>
         `;
         $container.appendChild($alert);

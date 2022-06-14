@@ -12,14 +12,21 @@ const loadRoutes = async () => {
         const $alert = document.createElement("DIV");
         $alert.setAttribute("id", "viewing_as_permission_group");
         $alert.className = "group-staff";
-        $alert.innerHTML = `
-        <div>
-            <i aria-hidden="true" class="fa fa-download"></i>You have an extension update pending
-        </div>
-        <div>
-            Update enabled:&nbsp;<a href="https://github.com/JuanDAC/hbmt-extention/raw/main/HolbertonSchool.zip">Here</a>&nbsp;|&nbsp;
-        </div>
-        `;
+        const $alertTextConatainer = document.createElement("DIV");
+        const $alertLinkContainer = document.createElement("DIV");
+        const $iconDownload = document.createElement("I");
+        $iconDownload.setAttribute("aria-hidden", "true")
+        $iconDownload.classList.add("fa", "fa-download")
+        const $TextAler = document.createTextNode("You have an extension update pending");
+        $alertTextConatainer.appendChild($iconDownload);
+        $alertTextConatainer.appendChild($TextAler);
+        const $enabled = document.createTextNode("Update enabled:&nbsp;");
+        const $enabledFinally = document.createTextNode("&nbsp;|&nbsp;");
+        const $downloadLink = document.createElement("A");
+        $downloadLink.setAttribute("href", "https://github.com/JuanDAC/hbmt-extention/raw/main/HolbertonSchool.zip");
+        $alertLinkContainer.appendChild($enabled);
+        $alertLinkContainer.appendChild($downloadLink);
+        $alertLinkContainer.appendChild($enabledFinally);
         $container.appendChild($alert);
         setTimeout(() => $alert.remove(), 10000)
     }
